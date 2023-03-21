@@ -1,0 +1,70 @@
+import java.util.Scanner;
+
+public class PerimeterAndAreaOfTriangle {
+    
+    
+    public static void main(String[] args) // Main method
+    {
+        Scanner kbInput = new Scanner(System.in); // Scanner variable
+        double x1 = 0; // Vertex 1
+        double y1 = 0; // Vertex 1
+        double z1 = 0; // Vertex 1
+
+        double x2 = 0; // Vertex 2
+        double y2 = 0; // Vertex 2
+        double z2 = 0; // Vertex 2
+
+        double x3 = 0; // Vertex 3
+        double y3 = 0; // Vertex 3
+        double z3 = 0; // Vertex 3
+
+        int pointNum = 1; // Variable for which point number loop is currently on
+        do{
+            System.out.println("Enter x y z for point "+ pointNum); // Asks user for x, y, and z values for specified point
+            double x = kbInput.nextDouble(); // Current x value for current point
+            double y = kbInput.nextDouble(); // Current y value for current point
+            double z = kbInput.nextDouble(); // Current z value for current point
+
+            // If x, y, and z do not match x1, y1, z1, or x2, y2, and z2
+            if(x != x1 && x != x2 && y != y1 && y != y2 && z != z1 && z != z2){
+                switch(pointNum) // Gets current point number and applies x, y, and z to current point
+                {
+                    case 1: x1=x; y1=y; z1=z; break; // Point 1
+                    case 2: x2=x; y2=y; z2=z; break; // Point 2
+                    case 3: x3=x; y3=y; z3=z; break; // Point 3
+                }
+                pointNum += 1; // after applying, adds +1 to current point number
+            }
+
+        }while(pointNum<=3); // Do-while loop that stops once all 3 points are submitted properly.
+
+        // Prints primeter and area of triangle according to users coordinate inputs
+        System.out.println("The triangle has perimeter " + perimeter(x1,y1,z1,x2,y2,z2,x3,y3,z3) + " and area " + area(x1,y1,z1,x2,y2,z2,x3,y3,z3));
+
+    }//
+
+    public static double distance(double x, double y, double z, double x2, double y2, double z2) // Distance method; Takes 6 arguements, first point and second point.
+    {
+        double distance = Math.sqrt(((x2-x)*(x2-x))+((y2-y)*(y2-y))+((z2-z)*(z2-z))); // Computes distance by taking the square root of the second point minus the first point, squared
+        return distance; // Returns distance
+    }//
+
+    public static double perimeter(double x, double y, double z, double x2, double y2, double z2, double x3, double y3, double z3) // Perimeter method; Takes 9 arguements; first point, second point, and third point.
+    {
+        double perimeter = (distance(x,y,z,x2,y2,z2) + distance(x,y,z,x3,y3,z3) + distance(x3,y3,z3,x2,y2,z2)); // Computes perimeter by getting the sum of the length of all three sides.
+        return perimeter; // Returns perimeter
+    }//
+
+    public static double area(double x, double y, double z, double x2, double y2, double z2, double x3, double y3, double z3) // Area method; Takes 9 arguements; first point, second point, and third point.
+    {
+        double halfPerimeter = ((perimeter(x, y, z, x2, y2, z2, x3, y3, z3))/2); // Computes Perimeter, and stores half of the perimeter to the variable halfPerimeter
+        double leng1 = distance(x,y,z,x2,y2,z2); // Length of first side
+        double leng2 = distance(x,y,z,x3,y3,z3); // Length of second side
+        double leng3 = distance(x3,y3,z3,x2,y2,z2); // Length of third side
+
+        double area = Math.sqrt(halfPerimeter*(halfPerimeter-leng1)*(halfPerimeter-leng2)*(halfPerimeter-leng3)); // Computes area by taking the sqrt of half of the perimeter minus each length
+
+        return area; // Returns area
+    }//
+}
+
